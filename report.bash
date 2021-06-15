@@ -22,9 +22,9 @@ fi
 
 # Create report title
 
-echo "SOFTWARE ASSET REPORT FOR INSTALLED LINUX SYSTEM" > /root/report.txt
-echo "Date: $(date +'%A %B %d, %Y (%H:%M:%p)')" >> /root/report.txt
-echo  >> /root/report.txt
+echo "SOFTWARE ASSET REPORT FOR INSTALLED LINUX SYSTEM"  
+echo "Date: $(date +'%A %B %d, %Y (%H:%M:%p)')" 
+echo  
 
 # Using zenity (dialog box constructor)
 # Prompts user for elements to be included in the report...
@@ -41,43 +41,43 @@ do
 
    if [ "$x" = "Kernel" ]    # Add Kernel Version to report
    then
-      echo "Kernel Version: $(uname -rv)"  >> /root/report.txt
-      echo  >> /root/report.txt
+      echo "Kernel Version: $(uname -rv)"  
+      echo  
    fi
 
    if [ "$x" = "Processes" ]    # Add Kernel Version to report
    then
-      echo "Process Information:"  >> /root/report.txt
-      echo  >> /root/report.txt
-      ps -ef  >> /root/report.txt
-      echo  >> /root/report.txt
+      echo "Process Information:"  
+      echo  
+      ps -ef  
+      echo  
    fi
 
    if [ "$x" = "Hostname" ]    # Add Kernel Version to report
    then
-      echo "Hostname: $(hostname)"  >> /root/report.txt
-      echo  >> /root/report.txt
+      echo "Hostname: $(hostname)"  
+      echo  
    fi
 
    if [ "$x" = "Network" ]    # Add Kernel Version to report
    then
-      echo "Network Interface Information:"  >> /root/report.txt
-      echo  >> /root/report.txt
-      ifconfig  >> /root/report.txt
-      echo  >> /root/report.txt
+      echo "Network Interface Information:"  
+      echo  
+      ifconfig  
+      echo  
    fi
 
    if [ "$x" = "Routing" ]    # Add Kernel Version to report
    then
-      echo "Routing information:"  >> /root/report.txt
-      echo  >> /root/report.txt
-      route -n  >> /root/report.txt
-      echo  >> /root/report.txt
+      echo "Routing information:"  
+      echo  
+      route -n  
+      echo  
    fi
 
 done
 
 echo
-zenity --info --text "Report has been saved in <b>/root/report.txt</b>\n\nHave a Nice Day..."
+zenity --info --text "To save a copy of this report, use: <b>sudo ./report.bash > report.txt</b>.\n\nHave a Nice Day..."
 
 # End of Bash Shell Script
