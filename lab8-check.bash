@@ -12,7 +12,7 @@
 # Function to indicate OK (in green) if check is true; otherwise, indicate
 # WARNING (in red) if check is false and end with false exit status
 
-logfile=/root/lab8_output.txt
+logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Desktop/lab8_output.txt
 
 function check(){
 
@@ -110,5 +110,5 @@ echo "Congratulations!" | tee -a $logfile
 echo | tee -a $logfile
 echo "You have successfully completed Lab 8." | tee -a $logfile
 echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at /root/lab8_output.txt. Submit this file along with your screenshot." | tee -a $logfile
+echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
 echo
