@@ -6,6 +6,8 @@
 # Date:    June 27, 2016
 # Edited by: Peter Callaghan
 # Date: Jan 10, 2021
+# Edited by: Chris Johnson
+# Date: July 22, 2021
 #
 # Purpose: 
 
@@ -124,13 +126,9 @@ check "ping centos2 -c 1 > /dev/null 2>&1" "This program could not ping centos2.
 echo -n "Check pinging centos3: " | tee -a $logfile
 check "ping centos3 -c 1 > /dev/null 2>&1" "This program could not ping centos3. Please make appropriate corrections, and re-run this checking script." | tee -a $logfile
 
-# Check existence of network-info.bash script
-echo -n "Checking existence of \"/home/$SUDO_USER/bin/network-info.bash\" script: " | tee -a $logfile
-check "test -f /home/$SUDO_USER/bin/network-info.bash" "This program could not detect the pathname: \"/home/$SUDO_USER/bin/network-info.bash\". Please download and run the script, and re-run this checking script." | tee -a $logfile
-
-# Check proof that network-info.bash script was run
-echo -n "Checking existence of \"/home/$SUDO_USER/network-info.html\" script: " | tee -a $logfile
-check "test -f /home/$SUDO_USER/network-info.html" "This program could not detect the pathname: \"/home/$SUDO_USER/network-info.html\". Please download and run the script, and re-run this checking script." | tee -a $logfile
+# Check existence of netconfig.py script
+echo -n "Checking existence of \"/home/$SUDO_USER/bin/netconfig.py\" script: " | tee -a $logfile
+check "test -f /home/$SUDO_USER/bin/netconfig.py" "This program could not detect the pathname: \"/home/$SUDO_USER/bin/netconfig.py\". Please review Investigation 3 and successfully code the script /home/$SUDO_USER/bin/netconfig.py." | tee -a $logfile
 
 echo | tee -a $logfile
 echo | tee -a $logfile
