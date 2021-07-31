@@ -91,15 +91,15 @@ check "ssh $centos1UserName@centos1 grep -sq other /etc/passwd" "This program di
 
 # Check that PermitRootLogin in /etc/ssh/sshd_config file was set to no
 echo "Checking \"PermitRootLogin\" set to \"no\" (sshd_config backup): " | tee -a $logfile
-check "ssh $centos1UserName@centos1 grep -qsi PermitRootLogin.*no /home/$SUDO_USER/sshd_config.bk" "This program did not detect the option \"PermitRootLogin\" was set to \"no\" in the \"/home/$SUDO_USER/sshd_config.bk\" file in your centos1 VM. Please make corrections, and re-run this checking shell script." | tee -a $logfile
+check "ssh $centos1UserName@centos1 grep -qsi PermitRootLogin.*no /home/$centos1UserName/sshd_config.bk" "This program did not detect the option \"PermitRootLogin\" was set to \"no\" in the \"/home/$centos1UserName/sshd_config.bk\" file in your centos1 VM. Please make corrections, and re-run this checking shell script." | tee -a $logfile
 
 # Check that account called other is AllowUsers in sshd_config file
 echo "Checking user \"other\" added to \"AllowUsers\" option (sshd_config backup): " | tee -a $logfile
-check "ssh $centos1UserName@centos1 grep -sq AllowUsers.*other.* /home/$SUDO_USER/sshd_config.bk" "This program did not detect the option \"AllowUsers\" including the \"other\" account in the \"/home/$SUDO_USER/ssh_config.bk\" file in your centos1 VM. Please make corrections, and re-run this checking shell script." | tee -a $logfile
+check "ssh $centos1UserName@centos1 grep -sq AllowUsers.*other.* /home/$centos1UserName/sshd_config.bk" "This program did not detect the option \"AllowUsers\" including the \"other\" account in the \"/home/$centos1UserName/ssh_config.bk\" file in your centos1 VM. Please make corrections, and re-run this checking shell script." | tee -a $logfile
 
 # Check that public key created in centos2 VM
 echo "Checking that public key created in \"centos2\" VM: " | tee -a $logfile
-check "ssh $centos1UserName@centos2 ls /home/$SUDO_USER/.ssh/id_rsa.pub > /dev/null" "This program did not detect the public key \"/home/$SUDO_USER/.ssh/id_rsa.pub\" in the centos2 VM. Please make corrections, and re-run this checking shell script." | tee -a $logfile
+check "ssh $centos1UserName@centos2 ls /home/$centos1UserName/.ssh/id_rsa.pub > /dev/null" "This program did not detect the public key \"/home/$centos1UserName/.ssh/id_rsa.pub\" in the centos2 VM. Please make corrections, and re-run this checking shell script." | tee -a $logfile
 
 # Check that public key copied to the centos3 VM
 echo "Checking that public key copied to the \"centos3\" VM: " | tee -a $logfile
