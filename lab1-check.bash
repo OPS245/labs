@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    May 22, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: Sep 11, 2021
 #
 # Purpose: Check that students correctly installed the centos1 VM
 #          and properly performed common Linux commands. Script will
@@ -93,17 +93,17 @@ check "grep -isq SELINUX=permissive /etc/selinux/config" "According to your \"/e
 echo -n "Checking that \"/home/$USER/bin\" directory was created:" | tee -a $logfile
 check "test -d \"/home/$USER/bin\"" "This program did NOT detect that the \"/$USER/bin\" directory was created. Please create this directory, and re-run this shell script." | tee -a $logfile
 
-# Check for existence of /home/user/bin/myreport.bash script
-echo -n "Checking that \"/home/$USER/bin/myreport.bash\" script exists:" | tee -a $logfile
-check "test -f \"/home/$USER/bin/myreport.bash\"" "This program did NOT detect the existence of the file pathname \"/home/$USER/bin/myreport.bash\". Please create this script at that pathname and re-run this shell script." | tee -a $logfile
+# Check for existence of /home/user/bin/report.txt
+echo -n "Checking that \"/home/$USER/bin/report.txt\"  exists:" | tee -a $logfile
+check "test -f \"/home/$USER/bin/myreport.py\"" "This program did NOT detect the output from the manual system report \"/home/$USER/bin/report.txt\". Please create your manual system report and re-run this shell script." | tee -a $logfile
 
 # Check for existence of /home/user/bin/myreport.py script
 echo -n "Checking that \"/home/$USER/bin/myreport.py\" script exists:" | tee -a $logfile
 check "test -f \"/home/$USER/bin/myreport.py\"" "This program did NOT detect the existence of the file pathname \"/home/$USER/bin/myreport.py\". Please create this script at that pathname and re-run this shell script." | tee -a $logfile
 
-# Check that myreport.bash script was run
-echo -n "Checking that \"/home/$USER/bin/myreport.bash\" script was run:" | tee -a $logfile
-check "test -f \"/root/report.txt\"" "This program did NOT detect the existence of the file \"/root/report.txt\" and may indicate that the shell script was NOT run. Please run the shell script correctly and re-run this shell script." | tee -a $logfile
+# Check that myreport.py script was run
+echo -n "Checking that \"/home/$USER/bin/myreport.py\" script was run:" | tee -a $logfile
+check "test -f \"/home/$USER/bin/pythonreport.txt\"" "This program did NOT detect the existence of the file \"/home/$USER/bin/pythonreport.txt\" and may indicate that the shell script was NOT run. Please run the shell script correctly and re-run this shell script." | tee -a $logfile
 
 
 echo | tee -a $logfile
