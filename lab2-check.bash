@@ -6,7 +6,7 @@
 # Date:      May 22, 2016
 # Modified:  September 15, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: 18 Sept, 2021
 #
 # Purpose: Check that students correctly installed centos1, centos2,
 #          and centos3 VMs. Check that VMs installed correctly
@@ -130,9 +130,9 @@ check "test -f /var/lib/libvirt/images/centos2.qcow2" "This program detected tha
 echo -n "Checking that \"/var/lib/libvirt/images/centos3.qcow2\" file exists:" | tee -a $logfile
 check "test -f /var/lib/libvirt/images/centos3.qcow2" "This program detected that the file pathname \"/var/lib/libvirt/images/centos3.qcow2\" does NOT exist. Please remove, and recreate the centos3 VM, and then re-run this checking shell script." | tee -a $logfile
 
-# Check that  backupVM.bash script was created in /root/bin directory
-echo -n "Checking that file pathname \"/home/$UserName/bin/backupVM.bash\" exists:" | tee -a $logfile
-check "test -f /home/$UserName/bin/backupVM.bash" "This program detected that the file pathname \"/home/$UserName/bin/backupVM.bash\" does NOT exist. please make fixes to this script, and re-run this checking shell script." | tee -a $logfile
+# Check that  backupVM.bash script was created in user's bin directory
+echo -n "Checking that file pathname \"/home/$UserName/bin/backupVM.py\" exists:" | tee -a $logfile
+check "test -f /home/$UserName/bin/backupVM.py" "This program detected that the file pathname \"/home/$UserName/bin/backupVM.py\" does NOT exist. please make fixes to this script, and re-run this checking shell script." | tee -a $logfile
 
 # Check centos1 VM backed up (qcow2)
 echo -n "Checking that centos1 backed up in user's home directory:" | tee -a $logfile
