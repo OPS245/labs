@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    June 7, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: Sept 19, 2021
 #
 # Purpose: Check that students correctly archived and installed and
 #          removed software on their VMs
@@ -116,13 +116,9 @@ check "yum repolist | grep -isq \"epel\"" "This program did NOT detect that the 
 echo -n "Checking for presence of \"lbreakout\" application (c7host): " | tee -a $logfile
 check "which lbreakout > /dev/null 2> /dev/null || which lbreakout2 > /dev/null 2> /dev/null || test -f /usr/bin/lbreakout2 || test -f /usr/local/bin/lbreakout2" "This program did NOT detect that the game called \"lbreakout2\" was installed on your \"c7host\" VM. Please follow the instructions to properly compile your downloaded source code (perhaps ask your instructor or lab assistant for help), and then re-run this checking shell script." | tee -a $logfile
 
-# Check for presence of packageInfo.bash bash shell script
-echo -n "Checking for presence of \"/root/bin/packageInfo.bash\" script: " | tee -a $logfile
-check "test -f /root/bin/packageInfo.bash" "This program did NOT detect the presence of the file: \"/root/bin/packageInfo.bash\". Please create this shell script in the correct location, assign execute permissions, and run this shell script, and then re-run this checking shell script." | tee -a $logfile
-
-# Check packageInfo.bash shell script was run
-echo -n "Checking for presence of \"/root/package-info.txt\" report: " | tee -a $logfile
-check "test -f /root/package-info.txt" "This program did NOT detect the presence of the file: \"/root/package-info.txt\". Please create this shell script in the correct location, assign execute permissions, and run this shell script, and then re-run this checking shell script." | tee -a $logfile
+# Check for presence of tarchiver.py bash shell script
+echo -n "Checking for presence of \"/home/$USER/bin/tarchiver.py\" script: " | tee -a $logfile
+check "test -f /home/$USER/bin/tarchiver.py" "This program did NOT detect the presence of the file: \"/home/$USER/bin/tarchiver.py\". Please create this shell script in the correct location, assign execute permissions, and run this shell script, and then re-run this checking shell script." | tee -a $logfile
 
 echo | tee -a $logfile
 echo | tee -a $logfile
