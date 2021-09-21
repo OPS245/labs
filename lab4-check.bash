@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    June 7, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: Sept 21, 2021
 #
 # Purpose: Check that students correctly managed user and group accounts
 #          when performing this lab, check that students have properly
@@ -105,14 +105,9 @@ check "ssh $centos1UserName@$centos1_IPADDR systemctl status iptables | grep -iq
 echo "Checking that that \"centos1\" VM is in run-level 5: " | tee -a $logfile
 check "ssh $centos1UserName@$centos1_IPADDR /sbin/runlevel | grep -isq \"5$\"" "This program did NOT detect that your \"centos1\" VM is in runlevel 5. Please make certain you set the runlevel to 5 (Graphical mode with networking), and re-run this checking script." | tee -a $logfile
 
-# Check for file: /root/bin/createUsers.bash (c7host)
-echo  "Checking that the script \"/root/bin/createUsers.bash\" exists: " | tee -a $logfile
-check "test -f /root/bin/createUsers.bash" "This program did NOT detect the file \"/root/bin/createUsers.bash\" on your \"c7host\" machine. Download, set execute permissions, and run this shell script, and re-run this checking script." | tee -a $logfile
-
-# Check that script createUsers.bash as run (c7host)
-echo  "Checking that the script \"/root/bin/createUsers.bash\" was run: " | tee -a $logfile
-check "egrep -isq \"(msaul|dward|eweaver|sapted)\" /etc/passwd" "This program did NOT detect the new users (msaul, dward, eweaver, or sapted) in the \"/etc/passwd\" directory on your \"c7host\" VM. Make certain to run this shell script (and download the database file), and run this shell script, and re-run this checking script." | tee -a $logfile
-
+# Check for file: /user/bin/tarchiver2.py (c7host)
+echo  "Checking that the script \"/home/$USER/bin/tarchiver2.py\" exists: " | tee -a $logfile
+check "test -f /home/$USER/bin/tarchiver2.py" "This program did NOT detect the file \"/home/$USER/bin/tarchiver2.py\" on your \"c7host\" machine. Complete the lab, and re-run this checking script." | tee -a $logfile
 
 echo | tee -a $logfile
 echo | tee -a $logfile
