@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    June 27, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: 26 Sept, 2021
 # Edited by: Chris Johnson
 # Date: July 22, 2021
 #
@@ -130,12 +130,20 @@ check "ping centos3 -c 1 > /dev/null 2>&1" "This program could not ping centos3.
 echo -n "Checking existence of \"/home/$SUDO_USER/bin/netconfig.py\" script: " | tee -a $logfile
 check "test -f /home/$SUDO_USER/bin/netconfig.py" "This program could not detect the pathname: \"/home/$SUDO_USER/bin/netconfig.py\". Please review Investigation 3 and successfully code the script /home/$SUDO_USER/bin/netconfig.py." | tee -a $logfile
 
+warningcount=`grep -c "WARNING" $logfile`
+
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 6." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo "3. Also submit a copy of your netconfig.py script." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 6." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo "3. Also submit a copy of your netconfig.py script." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
