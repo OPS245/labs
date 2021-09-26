@@ -120,12 +120,20 @@ check "which lbreakout > /dev/null 2> /dev/null || which lbreakout2 > /dev/null 
 echo -n "Checking for presence of \"/home/$USER/bin/tarchiver.py\" script: " | tee -a $logfile
 check "test -f /home/$USER/bin/tarchiver.py" "This program did NOT detect the presence of the file: \"/home/$USER/bin/tarchiver.py\". Please create this shell script in the correct location, assign execute permissions, and run this shell script, and then re-run this checking shell script." | tee -a $logfile
 
+warningcount=`grep -c "WARNING" $logfile`
+
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 3." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo "3. Also submit a copy of your tarchiver.py script." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 3." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo "3. Also submit a copy of your tarchiver.py script." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
