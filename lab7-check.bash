@@ -6,7 +6,7 @@
 # Date:    June 28, 2016
 # Modified: November 27, 2020 (Chris Johnson)
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: Sept 26, 2021
 #
 # Purpose: 
 
@@ -145,11 +145,19 @@ check "history | grep -sq 'iptables-save > /etc/sysconfig/iptables.bk' | head -1
 echo -n "Checking for history for making iptables rules persistent: " | tee -a $logfile
 check "history | grep -sq 'iptables-save > /etc/sysconfig/iptables' | head -1" "This program did not detect when viewing results from the \"history\" command the iptables command: \"iptables-save > /etc/sysconfig/iptables\". Please make corrections, REBOOT your c7host machine, and re-run this checking shell script." | tee -a $logfile
 
+warningcount=`grep -c "WARNING" $logfile`
+
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 7." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 7." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
