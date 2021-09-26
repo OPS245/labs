@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    November 18, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: Sept 26, 2021
 #
 # Purpose: 
 
@@ -104,11 +104,19 @@ check "ssh ops245@centos3 ping -c1 192.168.245.42 > /dev/null 2> /dev/null" "Thi
 echo  "Checking that \"/var/lib/dhclient\" directory is non-empty on centos1 VM: " | tee -a $logfile
 check "ssh $centos1UserName@192.168.245.42 ls /var/lib/dhclient | grep -sq ." "This program did not detect regular files contained in the \"/var/lib/dhclient\" directory - this indicates that the dhcp process did not correctly for your centos1 VM when you issued the command \"dhclient\". Please make corrections, and re-run this checking shell script." | tee -a $logfile
 
+warningcount=`grep -c "WARNING" $logfile`
+
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 8." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 8." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
