@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    June 7, 2016
 # Edited by: Peter Callaghan
-# Date: Sept 21, 2021
+# Date: Sept 26, 2021
 #
 # Purpose: Check that students correctly managed user and group accounts
 #          when performing this lab, check that students have properly
@@ -109,11 +109,19 @@ check "ssh $centos1UserName@$centos1_IPADDR /sbin/runlevel | grep -isq \"5$\"" "
 echo  "Checking that the script \"/home/$USER/bin/tarchiver2.py\" exists: " | tee -a $logfile
 check "test -f /home/$USER/bin/tarchiver2.py" "This program did NOT detect the file \"/home/$USER/bin/tarchiver2.py\" on your \"c7host\" machine. Complete the lab, and re-run this checking script." | tee -a $logfile
 
+warningcount=`grep -c "WARNING" $logfile`
+
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 4." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 4." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
