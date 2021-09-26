@@ -6,7 +6,7 @@
 # Date:      May 22, 2016
 # Modified:  September 15, 2016
 # Edited by: Peter Callaghan
-# Date: 18 Sept, 2021
+# Date: 26 Sept, 2021
 #
 # Purpose: Check that students correctly installed centos1, centos2,
 #          and centos3 VMs. Check that VMs installed correctly
@@ -146,12 +146,20 @@ check "test -f /home/$UserName/backups/centos2.qcow2.gz" "This program detected 
 echo "Checking that centos3 backed up in user's home directory:" | tee -a $logfile
 check "test -f /home/$UserName/backups/centos3.qcow2.gz" "This program detected that the file pathname \"/home/$UserName/backups/centos3.qcow2.gz\" does NOT exist. Please properly backup the centos3 VM (using gzip) to your home directory, and then re-run this checking shell script." | tee -a $logfile
 
+warningcount=`grep -c "WARNING" $logfile`
+
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 2." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo "3. Also submit a copy of your backupVM.py script." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 2." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo "3. Also submit a copy of your backupVM.py script." | tee -a $logfile
+  echo
+else
+  echo "Your Lab is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
