@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    June 7, 2016
 # Edited by: Peter Callaghan
-# Date: Jan 10, 2021
+# Date: Sept 26, 2021
 #
 # Purpose: Check that students have correctly managed file system sizes with LVM
 #          and other disk management utlities. Also check that crontab was correctly
@@ -15,6 +15,7 @@
 # WARNING (in red) if check is false and end with false exit status
 
 logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Desktop/lab5_output.txt
+warningcount=0
 
 function check(){
 
@@ -29,6 +30,7 @@ function check(){
      echo
      echo $2
      echo
+     warningcount=$((warningcount+1))
      exit 1
   fi
 
@@ -80,13 +82,13 @@ echo | tee -a $logfile
 echo "CHECKING YOUR LAB 5 WORK:" | tee -a $logfile
 echo | tee -a $logfile
 
-# Check for file pathname /root/bin/monitor-disk-space.bash (c7host)
-echo -n "Checking that \"/root/bin/monitor-disk-space.bash\" file exists (c7host): " | tee -a $logfile
-check "test -f \"/root/bin/monitor-disk-space.bash\"" "This program found there is no file called: \"/root/bin/monitor-disk-space.bash\" on your \"c7host\" VM. Please create this archive again (for the correct VM), and re-run this checking shell script." | tee -a $logfile
+# Check for file pathname /home/$USER/bin/monitor-disk-space.py (c7host)
+echo -n "Checking that \"/home/$USER/bin/monitor-disk-space.py\" file exists (c7host): " | tee -a $logfile
+check "test -f \"/home/$USER/bin/monitor-disk-space.py\"" "This program found there is no file called: \"//home/$USER/bin/monitor-disk-space.py\" on your \"c7host\" VM. Please create this archive again (for the correct VM), and re-run this checking shell script." | tee -a $logfile
 
 # Check crontab file (c7host)
 echo -n "Checking for crontab file (c7host): " | tee -a $logfile
-check "crontab -l | grep -iqs \"monitor-disk-space.bash\"" "This program found there was no crontab entry to run the monitor-disk-space.bash shell script. Please properly create this crontab entry as root , and re-run this checking shell script." | tee -a $logfile
+check "crontab -l -u $USER | grep -iqs \"/home/$USER/bin/monitor-disk-space.py\"" "This program found there was no crontab entry to run the monitor-disk-space.py shell script. Please properly create this crontab entry as ${USER}, and re-run this checking shell script." | tee -a $logfile
 
 # Check /dev/vda3 or /dev/sda3 partition created (centos2)
 echo "Checking that /dev/vda3 or /dev/sda3 partition created (centos2): " | tee -a $logfile
@@ -126,10 +128,16 @@ check "ssh $centos2UserName@$centos2_IPADDR grep -sq /archive /etc/fstab" "This 
 
 echo | tee -a $logfile
 echo | tee -a $logfile
-echo "Congratulations!" | tee -a $logfile
-echo | tee -a $logfile
-echo "You have successfully completed Lab 5." | tee -a $logfile
-echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
-echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
-echo "3. Also submit a copy of your disk-monitor.bash script." | tee -a $logfile
-echo
+if [ $warningcount == 0 ]
+then
+  echo "Congratulations!" | tee -a $logfile
+  echo | tee -a $logfile
+  echo "You have successfully completed Lab 5." | tee -a $logfile
+  echo "1. Submit a screenshot of your entire desktop (including this window) to your course professor." | tee -a $logfile
+  echo "2. A copy of this script output has been created at $logfile. Submit this file along with your screenshot." | tee -a $logfile
+  echo "3. Also submit a copy of your disk-monitor.py script." | tee -a $logfile
+  echo
+else
+  echo "Your Lab 5 is not complete." | tee -a $logfile
+  echo "Correct the warnings listed above, then run this script again." | tee -a $logfile
+fi
