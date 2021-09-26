@@ -15,7 +15,6 @@
 # WARNING (in red) if check is false and end with false exit status
 
 logfile=$(getent passwd ${SUDO_USER:-$USER} | cut -d: -f6)/Desktop/lab5_output.txt
-warningcount=0
 
 function check(){
 
@@ -30,7 +29,6 @@ function check(){
      echo
      echo $2
      echo
-     warningcount=$((warningcount+1))
      exit 1
   fi
 
@@ -124,7 +122,7 @@ check "ssh $centos2UserName@$centos2_IPADDR lsblk | grep home | grep -isq 4G" "T
 echo -n "Checking that entry of \"/archive\" mount in /etc/fstab(centos2): " | tee -a $logfile
 check "ssh $centos2UserName@$centos2_IPADDR grep -sq /archive /etc/fstab" "This program did NOT detect  that the \"/etc/fstab\" file contains the entry to mount the \"/dev/vda3\" partition under the \"/archive\" directory. Please make corrections to this file, and re-run this checking script." | tee -a $logfile
 
-
+warningcount=`grep -c "WARNING" $logfile`
 
 echo | tee -a $logfile
 echo | tee -a $logfile
