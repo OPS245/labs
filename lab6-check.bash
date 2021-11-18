@@ -5,7 +5,7 @@
 # Author:  Murray Saul
 # Date:    June 27, 2016
 # Edited by: Peter Callaghan
-# Date: 26 Sept, 2021
+# Date: 18 Nov, 2021
 # Edited by: Chris Johnson
 # Date: July 22, 2021
 #
@@ -100,15 +100,15 @@ check "ping 192.168.245.13 -c 1 > /dev/null 2>&1" "This program could not ping c
 # Check for persistent setting on centos1
 echo "Check for persistent setting on centos1: " | tee -a $logfile
 read -p "Enter your username for centos1: " centos1UserName
-check "ssh ${centos1UserName}@centos1 grep -isq 192.168.245.11 /etc/sysconfig/network-scripts/ifcfg-eth0" "This program could find a correct address for the ifcfg-eth0 file. Please make fixes, and re-run this checking shell script." | tee -a $logfile
+check "ssh ${centos1UserName}@centos1 grep -isq 192.168.245.11 '/etc/sysconfig/network-scripts/ifcfg-e*'" "This program could find a correct address in the network interface file. Please make fixes, and re-run this checking shell script." | tee -a $logfile
 
 # Check for persistent setting on centos2
 echo "Check for persistent setting on centos2: " | tee -a $logfile
-check "ssh ${centos1UserName}@centos2 grep -isq 192.168.245.12 /etc/sysconfig/network-scripts/ifcfg-eth0" "This program could find a correct address for the ifcfg-eth0 file. Please make fixes, and re-run this checking shell script." | tee -a $logfile
+check "ssh ${centos1UserName}@centos2 grep -isq 192.168.245.12 '/etc/sysconfig/network-scripts/ifcfg-e*'" "This program could find a correct address in the netwrok interface file. Please make fixes, and re-run this checking shell script." | tee -a $logfile
 
 # Check for persistent setting on centos3
 echo "Check for persistent setting on centos3 (use password: \"ops245\"): " | tee -a $logfile
-check "ssh ops245@centos3 grep -isq 192.168.245.13 /etc/sysconfig/network-scripts/ifcfg-eth0" "This program could not find a correct address for the ifcfg-eth0 file. Please make fixes, and re-run this checking shell script." | tee -a $logfile
+check "ssh ops245@centos3 grep -isq 192.168.245.13 '/etc/sysconfig/network-scripts/ifcfg-e*'" "This program could not find a correct address in the network interface file. Please make fixes, and re-run this checking shell script." | tee -a $logfile
 
 # Check if can ping c7host name
 echo -n "Checking pinging c7host: " | tee -a $logfile
