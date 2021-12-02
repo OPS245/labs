@@ -78,10 +78,10 @@ echo "CHECKING YOUR LAB 8 WORK:" | tee -a $logfile
 echo | tee -a $logfile
 
 
-# Check option BOOTPROTO set to "dhcp" in "ifcfg-eth0" file
-echo "Checking BOOTPROTO set to \"dhcp\" for \"ifcfg-eth0\" centos1 VM: " | tee -a $logfile
+# Check option BOOTPROTO set to "dhcp" in "ifcfg" file
+echo "Checking BOOTPROTO set to \"dhcp\" for centos1 VM: " | tee -a $logfile
 read -p "Enter your centos1 username: " centos1UserName
-check "ssh $centos1UserName@192.168.245.42 grep -sqi BOOTPROTO.*dhcp /etc/sysconfig/network-scripts/ifcfg-eth0" "This program did not detect the value \"dhcp\" for the BOOTPROTO option in the file called \"ifcfg-eth0\" on your centos1 VM. Another reason why this error occurred is that you didn't complete the last section to add a host for centos1 using the IPADDR \"192.168.245.42\". Please make corrections, reboot your centos3 VM, and re-run this checking shell script." | tee -a $logfile
+check "ssh $centos1UserName@192.168.245.42 grep -sqi BOOTPROTO.*dhcp '/etc/sysconfig/network-scripts/ifcfg-e*'" "This program did not detect the value \"dhcp\" for the BOOTPROTO option in the network interface file on your centos1 VM. Another reason why this error occurred is that you didn't complete the last section to add a host for centos1 using the IPADDR \"192.168.245.42\". Please make corrections, reboot your centos3 VM, and re-run this checking shell script." | tee -a $logfile
 
 # Check that dhcp server is running on centos3 VM
 echo "Checking that dhcp service is currently running on your centos3 VM: " | tee -a $logfile
